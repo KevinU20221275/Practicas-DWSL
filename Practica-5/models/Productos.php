@@ -17,17 +17,17 @@ class Productos{
     }
 
     public function create(){
-        $query = "INSERT INTO ".$this->table_name." (name, description, categorie) VALUES (:name, :description, :categorie)";
-        $resultt = $this->conn->prepare($query);
+        $query = "INSERT INTO $this->table_name (name, description, categorie) VALUES (:name, :description, :categorie)";
+        $result = $this->conn->prepare($query);
 
-        $this->name = htmlspecialchars(strip_tags($this-name));
-        $this->description = htmlspecialchars(strip_tags($this-description));
-        $this->categorie = htmlspecialchars(strip_tags($this-categorie));
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->categorie = htmlspecialchars(strip_tags($this->categorie));
         
         $result->bindParam(":name", $this->name);
         $result->bindParam(":description", $this->description);
         $result->bindParam(":categorie", $this->categorie);
-
+        
         if ($result->execute()){
             return true;
         } else {
@@ -37,7 +37,7 @@ class Productos{
 
     public function get_products(){
         $query = "SELECT * FROM ".$this->table_name;
-        $resultt = $this->conn->prepare($query);
+        $result = $this->conn->prepare($query);
         $result->execute();
         return $result;
     }
@@ -45,8 +45,8 @@ class Productos{
     public function get_product_by_id(){
         $query = "SELECT * FROM ".$this->table_name.
         " WHERE id=:id";
-        $resultt = $this->conn->prepare($query);
-        result->bindParam(":id", $this->id);
+        $result = $this->conn->prepare($query);
+        $result->bindParam(":id", $this->id);
         $result->execute();
 
         $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -61,12 +61,12 @@ class Productos{
     public function update(){
         $query = "UPDATE ".$this->table_name." SET name=:name, description=:description, categorie=:categorie 
         WHERE id=:id";
-        $resultt = $this->conn->prepare($query);
-
-        $this->name = htmlspecialchars(strip_tags($this-name));
-        $this->description = htmlspecialchars(strip_tags($this-description));
-        $this->categorie = htmlspecialchars(strip_tags($this-categorie));
-        $this->id = htmlspecialchars(strip_tags($this-id));
+        $result = $this->conn->prepare($query);
+        
+        $this->name = htmlspecialchars(strip_tags($this->name));
+        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->categorie = htmlspecialchars(strip_tags($this->categorie));
+        $this->id = htmlspecialchars(strip_tags($this->id));
         
         $result->bindParam(":name", $this->name);
         $result->bindParam(":description", $this->description);
@@ -83,8 +83,8 @@ class Productos{
     public function delete(){
         $query = "DELETE FROM ".$this->table_name.
         " WHERE id=:id";
-        $resultt = $this->conn->prepare($query);
-        result->bindParam(":id", $this->id);
+        $result = $this->conn->prepare($query);
+        $result->bindParam(":id", $this->id);
 
         if ($result->execute()) {
             return true;
