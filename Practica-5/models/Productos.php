@@ -17,7 +17,7 @@ class Productos{
     }
 
     public function create(){
-        $query = "INSERT INTO $this->table_name (name, description, categorie) VALUES (:name, :description, :categorie)";
+        $query = "INSERT INTO ".$this->table_name." (name, description, categorie) VALUES (:name, :description, :categorie)";
         $result = $this->conn->prepare($query);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
@@ -27,7 +27,7 @@ class Productos{
         $result->bindParam(":name", $this->name);
         $result->bindParam(":description", $this->description);
         $result->bindParam(":categorie", $this->categorie);
-        
+
         if ($result->execute()){
             return true;
         } else {
@@ -62,7 +62,7 @@ class Productos{
         $query = "UPDATE ".$this->table_name." SET name=:name, description=:description, categorie=:categorie 
         WHERE id=:id";
         $result = $this->conn->prepare($query);
-        
+
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->categorie = htmlspecialchars(strip_tags($this->categorie));
